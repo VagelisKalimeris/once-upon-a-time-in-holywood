@@ -4,7 +4,9 @@ import json
 LINE_LENGTH = 85
 
 
-def produce_dots(crew_dict, role):
+# todo ::: Format strings
+#      ::: Docstrings
+def _produce_dots(crew_dict, role):
     case_len = len(max((crew_dict[role]), key=len)) if isinstance(
         crew_dict[role], list) else len(crew_dict[role])
     dots_num = LINE_LENGTH - len(role) - case_len
@@ -12,13 +14,13 @@ def produce_dots(crew_dict, role):
     return '.' * dots_num
 
 
-def produce_cases(crew_dict):
+def _produce_cases(crew_dict):
     cases_str = ''
     for role in crew_dict:
         # Prepare role
         role_str = '\\ '.join(role.split())
         # Create dots string
-        dots = produce_dots(crew_dict, role)
+        dots = _produce_dots(crew_dict, role)
         # Create cases string
         if isinstance(crew_dict[role], list):
             cases = '\\begin{cases}'
@@ -34,13 +36,15 @@ def produce_cases(crew_dict):
 
 
 def produce_latex(crew_dict, document=False):
+    assert isinstance(crew_dict, dict), 'Error, unsupported argument type!'
+
     latex_start = ('\\documentclass{report}\\usepackage{color}\\usepackage'
-                   '{amsmath}\\begin{document}'if document else '') + '\\begin' \
+                   '{amsmath}\\begin{document}' if document else '') + '\\begin' \
                    '{equation}\\color{RedOrange}\\begin{align}\\begin{split}'
     latex_end = '\\end{split}\\end{align}\\end{equation}' + ('\\end{document}'
                                                              if document else '')
 
-    return latex_start + produce_cases(crew_dict) + latex_end
+    return latex_start + _produce_cases(crew_dict) + latex_end
 
 
 if __name__ == "__main__":
