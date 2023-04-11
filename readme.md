@@ -17,6 +17,7 @@ Developed under Python 3.10
 
 Running the [script](main.py), the crew's input is expected to be 
 [here](files/crew.json)(example supplied).
+*Latex* output will be saved in *files/ouatih.tex*. 
 
 Alternatively the function *main.produce_latex* can be imported and executed.
 
