@@ -1,42 +1,55 @@
 import json
 
-LINE_LENGTH = 60
+LINE_LENGTH = 85
 
 
-def produce_latex(input_file, output_file):
-    # Open crew file
-    with open(input_file) as json_file:
-        crew = json.load(json_file)
+def produce_dots(crew_dict, role):
+    case_len = len(max((crew_dict[role]), key=len)) if isinstance(
+        crew_dict[role], list) else len(crew_dict[role])
+    dots_num = LINE_LENGTH - len(role) - case_len
+    assert dots_num >= 0, 'Error in dots calculation(less than zero)!'
+    return '.' * dots_num
 
-    # Begin latex string
-    final_str = '\\begin{equation}\\color{RedOrange}\\begin{align}\\begin{split}'
 
-    for role in crew:
+def produce_cases(crew_dict):
+    cases_str = ''
+    for role in crew_dict:
         # Prepare role
         role_str = '\\ '.join(role.split())
         # Create dots string
-        case_len = len(max((crew[role]), key=len)) if isinstance(crew[role], list) else len(crew[role])
-        dots_num = LINE_LENGTH - len(role) - case_len
-        assert dots_num > 0, 'Length not supported!'
-        dots = '.' * dots_num
+        dots = produce_dots(crew_dict, role)
         # Create cases string
-        if isinstance(crew[role], list):
+        if isinstance(crew_dict[role], list):
             cases = '\\begin{cases}'
-            for entry in crew[role]:
+            for entry in crew_dict[role]:
                 cases += '\\ '.join(entry.split()).upper() + '\\\\'
             cases += '\\end{cases}\\\\'
         else:
-            cases = '\\ '.join(crew[role].split()).upper() + '\\\\'
+            cases = '\\ '.join(crew_dict[role].split()).upper() + '\\\\'
         # Create final string
-        final_str += '&' + role_str + '&' + dots + '&' + cases
+        cases_str += '&' + role_str + dots + cases
 
-    # Finalize latex string
-    final_str += '\\end{split}\\end{align}\\end{equation}'
+    return cases_str
 
-    # Save result in file
-    with open(output_file, 'w') as file:
-        file.write(final_str)
+
+def produce_latex(crew_dict, document=False):
+    latex_start = ('\\documentclass{report}\\usepackage{color}\\usepackage'
+                   '{amsmath}\\begin{document}'if document else '') + '\\begin' \
+                   '{equation}\\color{RedOrange}\\begin{align}\\begin{split}'
+    latex_end = '\\end{split}\\end{align}\\end{equation}' + ('\\end{document}'
+                                                             if document else '')
+
+    return latex_start + produce_cases(crew_dict) + latex_end
 
 
 if __name__ == "__main__":
-    produce_latex('files/crew.json', 'files/ouatih.txt')
+    # Open default crew location
+    with open('files/crew.json') as json_file:
+        crew = json.load(json_file)
+
+    # Transform
+    final_str = produce_latex(crew)
+
+    # Save result in default location
+    with open('files/ouatih.tex', 'w') as file:
+        file.write(final_str)
