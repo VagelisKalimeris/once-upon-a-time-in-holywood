@@ -16,14 +16,16 @@ Developed under Python 3.10
 # Execution
 
 Running the [script](main.py), the crew's input is expected to be 
-[here](files/crew.json)(example supplied).
+[here](files/crew.json). Simply delete the example data and add your own.
+The pattern is simple, roles with single entry &rarr; strings, roles with 
+multiple entries &rarr; list of strings.  
 *Latex* output will be saved in *files/ouatih.tex*. 
 
 Alternatively the function *main.produce_latex* can be imported and executed.
 
 
 # Example
-Running with the following example data,
+Running with the example data,
 ```
 {
   "Directed by": "Quentin Tarantino",
@@ -54,6 +56,7 @@ Running with the following example data,
   ]
 }
 ```
+\
 we get an output string that when compiled as *latex* looks like this:
 
 ![](files/screenshot.png)
