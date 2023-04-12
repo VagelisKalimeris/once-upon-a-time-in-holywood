@@ -4,9 +4,11 @@ import json
 LINE_LENGTH = 85
 
 
-# todo ::: Format strings
-#      ::: Docstrings
 def _produce_dots(crew_dict, role):
+    """
+    Produces a string, with the analogous amount of dots filling the space
+    between the role and its longest crew member name.
+    """
     case_len = len(max((crew_dict[role]), key=len)) if isinstance(
         crew_dict[role], list) else len(crew_dict[role])
     dots_num = LINE_LENGTH - len(role) - case_len
@@ -15,6 +17,10 @@ def _produce_dots(crew_dict, role):
 
 
 def _produce_cases(crew_dict):
+    """
+    Produces the main body Latex string, containing cases. Cases are the
+    groupings of roles with their corresponding crew members.
+    """
     cases_str = ''
     for role in crew_dict:
         # Prepare role
@@ -35,14 +41,19 @@ def _produce_cases(crew_dict):
     return cases_str
 
 
-def produce_latex(crew_dict, document=False):
+def produce_latex(crew_dict, full_doc=False):
+    """
+    Produces the final document or equation, by wrapping the cases with
+    appropriate Latex start/end.
+    """
+
     assert isinstance(crew_dict, dict), 'Error, unsupported argument type!'
 
-    latex_start = ('\\documentclass{report}\\usepackage{color}\\usepackage'
-                   '{amsmath}\\begin{document}' if document else '') + '\\begin' \
-                   '{equation}\\color{RedOrange}\\begin{align}\\begin{split}'
-    latex_end = '\\end{split}\\end{align}\\end{equation}' + ('\\end{document}'
-                                                             if document else '')
+    latex_start = ('\\documentclass{report}\\usepackage{color}\\pagecolor{black}'
+                   '\\usepackage{amsmath}\\begin{full_doc}' if full_doc else '') \
+                  + '\\begin{equation}\\color{yellow}\\begin{align}\\begin{split}'
+    latex_end = '\\end{split}\\end{align}\\end{equation}' + \
+                ('\\end{full_doc}' if full_doc else '')
 
     return latex_start + _produce_cases(crew_dict) + latex_end
 
@@ -53,7 +64,7 @@ if __name__ == "__main__":
         crew = json.load(json_file)
 
     # Transform
-    final_str = produce_latex(crew)
+    final_str = produce_latex(crew, full_doc=True)
 
     # Save result in default location
     with open('files/ouatih.tex', 'w') as file:

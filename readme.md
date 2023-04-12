@@ -60,3 +60,7 @@ Running with the example data,
 we get an output string that when compiled as *latex* looks like this:
 
 ![](files/screenshot.png)
+
+\
+Example compiled and saved
+as [pdf document](files/ouatih_compiled.pdf).
