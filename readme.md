@@ -1,7 +1,7 @@
 # Description
 
 ---
-After re-watching this beautiful Quentin Tarantino movie, it was hard not to 
+After re-watching this beautiful **Quentin Tarantino** movie, it was hard not to 
 get impressed with it's end-credits calligraphy.
 
 This here script transforms any lineup, given in *Python dictionary* or 
@@ -15,13 +15,14 @@ Developed under Python 3.10
 
 # Execution
 
-Running the [script](main.py), the crew's input is expected to be 
+Running the [main](main.py) script, the crew's input is expected to be 
 [here](files/crew.json). Simply delete the example data and add your own.
-The pattern is simple, roles with single entry &rarr; strings, roles with 
-multiple entries &rarr; list of strings.  
-*Latex* output will be saved in *files/ouatih.tex*. 
+The pattern is simple, roles with *single entry* &rarr; *strings*, roles with 
+*multiple entries* &rarr; *list of strings*.  
+*Latex* output will be saved [here](files/ouatih.tex). 
 
-Alternatively the function *main.produce_latex* can be imported and executed.
+Alternatively the function `main.produce_latex` can be imported and executed in 
+your code.
 
 
 # Example
@@ -57,10 +58,10 @@ Running with the example data,
 }
 ```
 \
-we get an output string that when compiled as *latex* looks like this:
+we get an output string that when compiled as **Latex** looks like this:
 
 ![](files/screenshot.png)
 
 \
 Example compiled and saved
-as [pdf document](files/ouatih_compiled.pdf).
+as a [pdf document](files/ouatih_compiled.pdf).
