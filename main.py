@@ -67,5 +67,5 @@ if __name__ == "__main__":
     final_str = produce_latex(crew, full_doc=True)
 
     # Save result in default location
-    with open('files/ouatih.tex', 'w') as file:
+    with open('files/output.tex', 'w') as file:
         file.write(final_str)

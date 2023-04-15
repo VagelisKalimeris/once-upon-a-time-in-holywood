@@ -19,7 +19,7 @@ Running the [main](main.py) script, the crew's input is expected to be
 [here](files/crew.json). Simply delete the example data and add your own.
 The pattern is simple, roles with *single entry* &rarr; *strings*, roles with 
 *multiple entries* &rarr; *list of strings*.  
-*Latex* output will be saved [here](files/ouatih.tex). 
+*Latex* output will be saved [here](files/output.tex). 
 
 Alternatively the function `main.produce_latex` can be imported and executed in 
 your code.
